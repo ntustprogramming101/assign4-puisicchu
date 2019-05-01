@@ -3,17 +3,17 @@ PImage groundhogIdle, groundhogLeft, groundhogRight, groundhogDown;
 PImage bg, life, cabbage, stone1, stone2, soilEmpty;
 PImage soldier;
 PImage soil0, soil1, soil2, soil3, soil4, soil5;
-PImage[][] soils, stones;
+PImage[][]soils, stones;
 
 final int GAME_START = 0, GAME_RUN = 1, GAME_OVER = 2;
 int gameState = 0;
 
 final int GRASS_HEIGHT = 15;
-final int SOIL_COL_COUNT = 8;
-final int SOIL_ROW_COUNT = 24;
+int SOIL_COL_COUNT = 8;
+int SOIL_ROW_COUNT = 24;
 final int SOIL_SIZE = 80;
 
-int[][] soilHealth;
+int[][]soilHealth;
 
 final int START_BUTTON_WIDTH = 144;
 final int START_BUTTON_HEIGHT = 60;
@@ -57,6 +57,9 @@ void setup() {
 
 	soilEmpty = loadImage("img/soils/soilEmpty.png");
 
+stone1 = loadImage("img/stone1.png");
+  stone2 = loadImage("img/stone2.png");
+
 	// Load soil images used in assign3 if you don't plan to finish requirement #6
 	soil0 = loadImage("img/soil0.png");
 	soil1 = loadImage("img/soil1.png");
@@ -78,9 +81,43 @@ void setup() {
 	for(int i = 0; i < stones.length; i++){
 		for(int j = 0; j < stones[i].length; j++){
 			stones[i][j] = loadImage("img/stones/stone" + i + "/stone" + i + "_" + j + ".png");
-		}
-	}
+}
+}
 
+ //1-8
+    for(int i=0;i<8;i++){
+      image(stone1,i*SOIL_SIZE,(i+2)*SOIL_SIZE);
+    }
+    
+    //9-16  
+    for(int y=10;y<18;y++){
+      for(int x=0;x<10;x++){         
+      if(floor((y+1)/2)%2==0){
+        if(floor(x/2)%2==0 ){image(stone1,(x-1)*SOIL_SIZE,y*SOIL_SIZE);}}
+      else{if(floor(x/2)%2==0 ){image(stone1,(x+1)*SOIL_SIZE,y*SOIL_SIZE);}}
+    }
+    }
+    
+    //17-24
+    for(int x=0;x<8;x++){
+    for(int y=0;y<8;y++){
+     if((x+y)%3==1){image(stone1,SOIL_SIZE*x,SOIL_SIZE*y+18*SOIL_SIZE);
+     if((x+y)%3==2){image(stone1,SOIL_SIZE*x,SOIL_SIZE*y+18*SOIL_SIZE);
+     image(stone2,SOIL_SIZE*x,SOIL_SIZE*y+18*SOIL_SIZE);}
+     if((x+y)%3==0){}
+    
+  //soil empty
+  for(int i = 1; i < 24; i += 3){
+    int count = 1 + floor(random(2));
+    for(int j = 0; j < count; j++){
+      image(soilEmpty,SOIL_COL_COUNT,SOIL_ROW_COUNT);
+    SOIL_COL_COUNT = floor(random(24));
+    SOIL_ROW_COUNT = i + floor(random(3));
+    }
+}
+    }
+}
+	}
 	// Initialize player
 	playerX = PLAYER_INIT_X;
 	playerY = PLAYER_INIT_Y;
